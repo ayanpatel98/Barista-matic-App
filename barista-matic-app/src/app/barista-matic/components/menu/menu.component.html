@@ -1,0 +1,48 @@
+<div class="card">
+  <div class="card-header">
+    <h5 class="mb-0">Drink Menu</h5>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-2 col-lg-4 p-2" *ngFor="let drinkInfo of drinksInfoList">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">{{ drinkInfo.drink.name }}</h5>
+            <p class="card-text">
+              <small class="text-muted">{{ drinkInfo.recipeString }}</small>
+            </p>
+            <p class="card-text">
+              <strong>Price: ${{ drinkInfo.cost.toFixed(2) }}</strong>
+            </p>
+          </div>
+          <div class="card-footer">
+            <button class="btn btn-success w-100" 
+                    [disabled]="!drinkInfo.canMake || (isDispensing)"
+                    (click)="dispenseDrink(drinkInfo.drink)">
+              Order
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+<div class="modal" [class.show]="isDispensing" [style.display]="(isDispensing) ? 'block' : 'none'" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Dispensing Drink</h5>
+      </div>
+      <div class="modal-body text-center">
+        <div class="spinner-border text-primary" role="status">
+        </div>
+        <p class="mb-0">Preparing {{ currentDrink?.name }}...</p>
+      </div>
+    </div>
+  </div>
+</div>
+  
+<div class="modal-backdrop fade show" *ngIf="isDispensing"></div>
+  
+  

@@ -1,0 +1,40 @@
+<div class="card mb-4">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h5 class="mb-0">Inventory</h5>
+    <button class="btn btn-primary" (click)="restock()">Restock</button>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Ingredient</th>
+            <th>Cost</th>
+            <th>Inventory</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ingredient of ingredients | keyvalue">
+            <td>{{ ingredient.value.name }}</td>
+            <td>${{ ingredient.value.cost.toFixed(2) }}</td>
+            <td>
+              <div class="progress" style="height: 20px;">
+                <div class="progress-bar" role="progressbar" 
+                      [style.width]="(ingredient.value.inventory / 10) * 100 + '%'"
+                      [ngClass]="{
+                        'bg-danger': ingredient.value.inventory < 3,
+                        'bg-warning': ingredient.value.inventory >= 3 && ingredient.value.inventory < 7,
+                        'bg-success': ingredient.value.inventory >= 7
+                      }">
+                  {{ ingredient.value.inventory }}
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+  
+  
