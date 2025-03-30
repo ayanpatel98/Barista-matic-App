@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DashboardComponent } from './dashboard.component';
+import { IngredientsInventoryComponent } from '../ingredients-inventory/ingredients-inventory.component';
+import { MenuComponent } from '../menu/menu.component';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -8,7 +10,11 @@ describe('DashboardComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [DashboardComponent]
+      declarations: [
+        DashboardComponent,
+        IngredientsInventoryComponent,
+        MenuComponent
+      ]
     });
     fixture = TestBed.createComponent(DashboardComponent);
     component = fixture.componentInstance;
