@@ -16,7 +16,10 @@ export class IngredientsInventoryComponent {
   ngOnInit(): void {
     this.baristaMaticService.getIngredients().subscribe(ingredientsSubject => this.ingredients = ingredientsSubject);
   }
-
+  
+  /**
+   * Restocks all ingredients to their maximum capacity
+   */
   restock(): void {
     this.baristaMaticService.restockIngredients();
   }

@@ -10,9 +10,9 @@ import { DRINKS } from '../data/drinks-data';
 })
 export class BaristaMaticService {
   private ingredients = INGREDIENTS;
-  private ingredientsSubject = new BehaviorSubject<{ [key: string]: Ingredient }>(this.ingredients);
-  private dispensingSubject = new BehaviorSubject<boolean>(false);
-  private currentDrinkSubject = new BehaviorSubject<Drink | null>(null);
+  private ingredientsSubject = new BehaviorSubject<{ [key: string]: Ingredient }>(this.ingredients); // stores ingredients data
+  private dispensingSubject = new BehaviorSubject<boolean>(false); // manages dispensing loader
+  private currentDrinkSubject = new BehaviorSubject<Drink | null>(null); // stores current drink
 
   constructor() {}
 
@@ -28,10 +28,21 @@ export class BaristaMaticService {
     return this.currentDrinkSubject.asObservable();
   }
 
+  /**
+   * Returns the list of all available drinks
+   *
+   * @return {Drink[]} Array of all drinks
+   */
   getDrinks(): Drink[] {
     return DRINKS;
   }
 
+  /**
+   * Calculates the cost of a drink based on its recipe and ingredient costs
+   *
+   * @param {Drink} drink - The drink to calculate cost for
+   * @return {number} The calculated cost of the drink
+   */
   calculateDrinkCost(drink: Drink): number {
     let cost = 0
     for (const [ingredientKey, amount] of Object.entries(drink.recipe)) {
@@ -40,20 +51,12 @@ export class BaristaMaticService {
     return Number.parseFloat(cost.toFixed(2));
   }
 
-  canMakeDrink(drink: Drink): boolean {
-    for (const [ingredientKey, amount] of Object.entries(drink.recipe)) {
-      if (this.ingredients[ingredientKey].inventory < amount) {
-        return false;
-      }
-    }
-    return true;
-  }
-
+  /**
+   * Dispenses a drink by updating inventory and triggering dispensing state
+   *
+   * @param {Drink} drink - The drink to dispense
+   */
   dispenseDrink(drink: Drink): void {
-    if (!this.canMakeDrink(drink)) {
-      return;
-    }
-
     this.dispensingSubject.next(true);
     this.currentDrinkSubject.next(drink);
 
@@ -75,6 +78,9 @@ export class BaristaMaticService {
     }, 2000)
   }
 
+  /**
+   * Restocks all ingredients to their maximum capacity (10 units)
+   */
   restockIngredients(): void {
     const restockedIngredients = { ...this.ingredients };
     for (const key of Object.keys(restockedIngredients)) {

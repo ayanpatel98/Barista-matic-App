@@ -36,10 +36,23 @@ export class MenuComponent {
     })
   }
 
+  /**
+   * calculate cost of the drink
+   *
+   * @param {Drink} drink - The drink to check
+   * @return {number} returns the cost of the drink
+   */
   getDrinkCost(drink: Drink): number {
     return this.baristaMaticService.calculateDrinkCost(drink);
   }
 
+  /**
+   * Checks if a drink can be made with the current inventory
+   *
+   * @param {Drink} drink - The drink to check
+   * @param {{ [key: string]: Ingredient }} ingredients - Current inventory of ingredients
+   * @return {boolean} True if the drink can be made, false otherwise
+   */
   canMakeDrink(drink: Drink, ingredients: { [key: string]: Ingredient }): boolean {
     for (const [ingredientKey, amount] of Object.entries(drink.recipe)) {
       if (ingredients[ingredientKey].inventory < amount) {
@@ -49,10 +62,21 @@ export class MenuComponent {
     return true
   }
 
+  /**
+   * Initiates the process of dispensing a drink
+   *
+   * @param {Drink} drink - The drink to be dispensed
+   */
   dispenseDrink(drink: Drink): void {
     this.baristaMaticService.dispenseDrink(drink);
   }
 
+  /**
+   * generates a string describing the recipe of a drink
+   *
+   * @param {Drink} drink - The drink to generate a recipe string for
+   * @return {string} A formatted string describing the recipe
+   */
   getRecipeString(drink: Drink): string {
     return Object.entries(drink.recipe).map(([key, value]) => `${value} ${key.trim()}`).join(", ");
   }
