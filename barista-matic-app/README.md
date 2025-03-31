@@ -1,27 +1,41 @@
-# BaristaMaticApp
+## Application overview
+Barista-matic machine maintains an inventory of drink ingredients, and is able to dispense a fixed set of possible drinks by combining these ingredients in different amounts. The cost of a drink is determined by its component ingredients. The user can order the drinks which updates the inventory ingredients automatically, and can restock the igredients in the inventory when needed. The UI also provides visual feedback while dispensing the drink and prevents the user from ordering the drink which has not enough ingredients available in the inventory.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.16.
+## Installation
+- Clone the repository from GitHub.
+- Navigate to the project directory.
+- Run `npm install` to install all dependencies.
 
-## Development server
+## Technical Specifications
+The application is built using Angular 16 with TypeScript and Bootstrap is used as the CSS framework for styling providing a responsive UI with minimal CSS. The application structure follows Angular best practices with a clear separation between components, services, models and modules.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Testing
+The application includes both unit and integration tests:
 
-## Code scaffolding
+### Unit Tests
+Unit tests focus on the BaristaService and MenuComponent. These tests are written using Jasmine.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+To run the tests:
 
-## Build
+- Run `ng test` to execute all tests with Karma.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Running the Application
+### Development Environment
+To run the application locally in development mode:
+- Run `npm start`.
+- Navigate to `http://localhost:4200`.
 
-## Running unit tests
+### Production Build
+To create and run a production build:
+- Run `ng build --configuration production` to create an optimized build.
+- Navigate to the `dist/barista-matic-app` directory.
+- Run the `npm install -g http-server` to install http-server globally.
+- Run `http-server -p 8080`.
+- Navigate to `http://localhost:8080` or `http://127.0.0.1:8080`.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Adding New Drinks
+The application is created to be flexible, which allows new drinks to be added without extensive code changes.
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+To add a new drink:
+- Open the `src/app/barista-matic/data/drink-data.ts` file.
+- Add a new entry to the `DRINKS` array.
